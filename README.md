@@ -23,6 +23,7 @@ UNOwifi uploader
 ```
 
 ### Future plans
+ - Create some sort of GUI.
  - Create an Installable setup which creates environment paths for the executables
  - Create a plugin for a third party IDE like vscode, atom, etc.
  - etc.
