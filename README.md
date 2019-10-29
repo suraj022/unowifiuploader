@@ -2,12 +2,14 @@ UNOwifi uploader
 ================
 
  Simple command-line utility to upload sketches over the air to arduino Uno. this tool works with ESP-link firmware running on esp8266 wifi microcontroller.
+ 
+ This tool exist because network ports in arduino IDE don't always appear. this tool can be used to manually specify the IP address and upload the sketches to the said network port.
 
 ### Requirements
  - Git bash
  - Arduino IDE (latest)
 
-### How to upload using command line
+### Usage
  Execute the following command in git bash to perform compile and upload
 ```
 ./avrflash <IP ADDRESS> <SKETCH.ino>
