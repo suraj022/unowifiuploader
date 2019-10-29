@@ -14,6 +14,6 @@ UNOwifi uploader
  Example
 
 ```
-./avrflash 192.168.0.101 blink.ino
+./avrflash 192.168.4.1 blink.ino
 
 ```
