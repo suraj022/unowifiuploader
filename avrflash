@@ -18,8 +18,8 @@ Flash the AVR running optiboot attached to esp-link with the sketch.
   -v                    Be verbose
   -h                    show this help
 
-Example: ${0##*/} -v esp-link mysketch.hex
-         ${0##*/} 192.168.4.1 mysketch.hex
+Example: ${0##*/} -v esp-link mysketch.ino
+         ${0##*/} 192.168.4.1 mysketch.ino
 EOT
 }
 
@@ -111,8 +111,10 @@ if [[ $? != 0 || ! "$sync" =~ ^Success ]]; then
   echo "Error programming AVR" >&2
   exit 1
 fi
+
 rm -rf "$hex"
 rm -rf "$elf"
+
 sec=$(( `date +%s` - $start ))
 echo "Success, took $sec seconds" >&2
 exit 0
