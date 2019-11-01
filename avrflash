@@ -32,8 +32,6 @@ start=`date +%s`
 
 # ===== Parse arguments
 
-verbose=
-
 while getopts "hvx:" opt; do
   case "$opt" in
     h) show_help; exit 0 ;;
@@ -55,7 +53,7 @@ fi
 hostname=$1
 sketch=$2
 
-./arduino-cli.exe compile -b arduino:avr:uno "$sketch"
+arduino-cli.exe compile -b arduino:avr:uno "$sketch"
 
 hex="${sketch}.arduino.avr.uno.hex"
 elf="${sketch}.arduino.avr.uno.elf"
@@ -73,8 +71,7 @@ fi
 
 # ===== Get AVR in sync
 
-[[ -n "$verbose" ]] && echo "Resetting AVR with http://$hostname/pgm/sync" >&2
-v=; [[ -n "$verbose" ]] && v=-v
+echo "Resetting AVR" >&2
 sync=`curl -m 10 $v -s -w '%{http_code}' -XPOST "http://$hostname/pgm/sync"`
 if [[ $? != 0 || "$sync" != 204 ]]; then
   echo "Error resetting AVR" >&2
@@ -104,13 +101,8 @@ done
 
 # ===== Send HEX file
 
-[[ -n "$verbose" ]] && echo "Sending HEX file for programming" >&2
+echo "Sending HEX file for programming" >&2
 sync=`curl -m 10 $v -s -g -d "@$hex" "http://$hostname/pgm/upload"`
-echo $sync
-if [[ $? != 0 || ! "$sync" =~ ^Success ]]; then
-  echo "Error programming AVR" >&2
-  exit 1
-fi
 
 rm -rf "$hex"
 rm -rf "$elf"
